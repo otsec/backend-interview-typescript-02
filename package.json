@@ -2,11 +2,11 @@
   "name": "backend-interview-node-02",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.js",
+  "main": "src/server.ts",
   "scripts": {
-    "local": "nodemon src/server.js",
-    "local:debug": "nodemon src/server.js",
-    "console": "node src/console.js",
+    "local": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts",
+    "local:debug": "nodemon --watch 'src/**/*.ts' --exec 'node --inspect=0.0.0.0:9229 -r ts-node/register' src/server.ts",
+    "console": "ts-node src/console.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -20,6 +20,8 @@
     "redis": "^4.6.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
   }
 }

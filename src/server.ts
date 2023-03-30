@@ -1,8 +1,9 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const mysql = require('mysql2')
-const axios = require('axios')
-const dotenv = require('dotenv')
+import * as express from 'express'
+import * as bodyParser from 'body-parser'
+import * as mysql from 'mysql2'
+import * as dotenv from 'dotenv'
+import axios from 'axios'
+import * as process from 'process'
 
 dotenv.config()
 
@@ -12,14 +13,15 @@ const config = {
     port: process.env.APP_PORT,
   },
   mysql: {
-    host: process.env.MYSQL_HOST_IP,
+    host: process.env.MYSQL_HOST,
+    port: +process.env.MYSQL_PORT,
+    database: process.env.MYSQL_DATABASE,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
   },
   prospect: {
     baseUrl: process.env.PROSPECT_BASE_URL,
-    apiKey: process.env.PROSPECT_API_KEY
+    apiKey: process.env.PROSPECT_API_KEY,
   },
 }
 
@@ -57,7 +59,7 @@ app.post('/email-verification', (req, res) => {
     )
     .then(function (response) {
       pool.query('INSERT INTO email (email) VALUES (?)', [req.body.email], function (err, result) {
-        pool.query('INSERT INTO email_verification (email_id, result) VALUES (?, ?)', [result.insertId, 'success'], function (err, result) {
+        pool.query('INSERT INTO email_verification (email_id, result) VALUES (?, ?)', [result[0].insertId, 'success'], function (err, result) {
           return res.send(response)
         })
       })

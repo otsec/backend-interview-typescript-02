@@ -35,8 +35,10 @@ Postman Collection is available in [`./postman`](./postman/Email%20Verification%
 3. Run `docker-compose up -d`
 
 ## Tasks
-1. Fill result saving class with necessary fields on `POST:/email-verification`.
-2. Implement server side validation for requested email on `POST:/email-verification`.
-3. Implement bulk processing on `POST:/email-verification`.
-4. Implement server side pagination on `GET:/email-verification`
-5. Advanced: implement async processing on `POST:/email-verification` (ideas: queue, db & cron script, redis) 
+1. Save emails verification results to database.
+2. Implement server-side validation for request `POST /email-verification`. Filter trash emails like `test@*`, `*@example.com`, `*@2x.png`.
+3. Implement bulk processing on `POST /email-verification`.
+4. Verify only new emails. Existing in DB emails return from DB.
+5. Add redis cache to reduce load on MySQL.
+6. Implement server side pagination on `GET /email-verification`.
+7. Advanced: implement async processing on `POST:/email-verification` (ideas: queue, db & cron script, redis) 
